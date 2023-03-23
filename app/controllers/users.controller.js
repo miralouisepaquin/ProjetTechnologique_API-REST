@@ -11,7 +11,8 @@ exports.create = (req, res) => {
   const users = new Users({
     mail: req.body.mail,
     password: req.body.password,
-	code: req.body.code
+	code: req.body.code,
+	broker: req.body.broker
   });
   // Save User in the database
   users
@@ -98,4 +99,19 @@ exports.delete = (req, res) => {
           message: "Ne peut supprimer le User avec le id: " + id
         });
       });
+};
+// Delete all Users from the database.
+exports.deleteAll = (req, res) => {
+    Users.deleteMany({})
+    .then(data => {
+      res.send({
+        message: `${data.deletedCount} Users were deleted successfully!`
+      });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while removing all Users."
+      });
+    });
 };
