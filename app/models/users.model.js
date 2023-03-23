@@ -3,7 +3,8 @@ module.exports = mongoose => {
         {
             mail: String,
             password: String,
-			code: Number
+			code: Number,
+			broker: String
         },
         { timestamps: true }
     );
